@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-// @ts-ignore
 import SSLCommerzPayment from 'sslcommerz-lts';
 import { Order } from './order.model';
 import config from '../../config';
 
-// ১. পেমেন্ট শুরু করা (Initiate Payment)
 const initiatePayment = async (req: Request, res: Response) => {
   try {
     const { orderIds, totalAmount, shippingAddress } = req.body;
@@ -49,7 +47,6 @@ const initiatePayment = async (req: Request, res: Response) => {
   }
 };
 
-// ২. পেমেন্ট সাকসেস হ্যান্ডলার
 const paymentSuccess = async (req: Request, res: Response) => {
   try {
     const { tranId } = req.params;
@@ -60,7 +57,6 @@ const paymentSuccess = async (req: Request, res: Response) => {
   }
 };
 
-// ৩. নতুন অর্ডার তৈরি (Checkout)
 const createOrder = async (req: Request, res: Response) => {
   try {
     const newOrder = await Order.create({ ...req.body, status: "Unpaid" });
@@ -70,7 +66,6 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-// ৪. সব অর্ডার দেখা (Admin)
 const getAllOrders = async (req: Request, res: Response) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
@@ -80,7 +75,6 @@ const getAllOrders = async (req: Request, res: Response) => {
   }
 };
 
-// ৫. ইউজার ইমেইল অনুযায়ী সব অর্ডার
 const getUserOrders = async (req: Request, res: Response) => {
   try {
     const orders = await Order.find({ userEmail: req.params.email }).sort({ createdAt: -1 });
@@ -90,7 +84,6 @@ const getUserOrders = async (req: Request, res: Response) => {
   }
 };
 
-// ৬. আনপেইড অর্ডার দেখা
 const getUnpaidOrders = async (req: Request, res: Response) => {
   try {
     const orders = await Order.find({ userEmail: req.params.email, status: "Unpaid" });
@@ -100,7 +93,6 @@ const getUnpaidOrders = async (req: Request, res: Response) => {
   }
 };
 
-// ৭. পেমেন্ট স্ট্যাটাস ম্যানুয়ালি আপডেট
 const updatePaymentStatus = async (req: Request, res: Response) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(req.params.orderId, { status: "Paid" }, { new: true });
@@ -110,7 +102,6 @@ const updatePaymentStatus = async (req: Request, res: Response) => {
   }
 };
 
-// ৮. অর্ডার ক্যানসেল করা (Admin Only)
 const cancelOrder = async (req: Request, res: Response) => {
   try {
     const { role } = req.body;
@@ -122,7 +113,7 @@ const cancelOrder = async (req: Request, res: Response) => {
   }
 };
 
-// ৯. অর্ডার ডিলিট করা
+
 const deleteOrder = async (req: Request, res: Response) => {
   try {
     const { role } = req.body;
@@ -134,7 +125,7 @@ const deleteOrder = async (req: Request, res: Response) => {
   }
 };
 
-// ১০. পেমেন্ট ফেইল ও ১১. ক্যানসেল
+
 const paymentFail = async (req: Request, res: Response) => {
   res.redirect(`${config.frontend_url}/orders/fail`);
 };

@@ -52,19 +52,18 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 };
 
-// ৩. নতুন প্রোডাক্ট তৈরি (Single or Bulk)
+
 const createProduct = async (req: Request, res: Response) => {
   try {
     let result;
     if (Array.isArray(req.body)) {
-      // এটি একটি অ্যারে রিটার্ন করবে
+ 
       result = await Product.insertMany(req.body);
     } else {
-      // এটি একটি সিঙ্গেল অবজেক্ট রিটার্ন করবে
+    
       result = await Product.create(req.body);
     }
 
-    // রেসপন্স মেসেজ ডাইনামিক করার জন্য চেক
     const isBulk = Array.isArray(result);
     const message = isBulk 
       ? `${(result as any[]).length} products added successfully! ✅` 
@@ -79,7 +78,7 @@ const createProduct = async (req: Request, res: Response) => {
     res.status(400).json({ success: false, error: err.message });
   }
 };
-// ৪. প্রোডাক্ট আপডেট করা
+
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -93,7 +92,7 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-// ৫. প্রোডাক্ট ডিলিট করা
+
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
