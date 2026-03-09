@@ -1,22 +1,31 @@
 {
   "name": "seoul-mirage-server-mod",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
+  "description": "Seoul Mirage Backend with TypeScript and Modular Pattern",
+  "main": "dist/server.js",
   "type": "commonjs",
-  "main": "index.js",
   "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.0.0",
+    "mongoose": "^8.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.3.5"
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.0.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/mongoose": "^5.11.96",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
   }
 }
