@@ -18,7 +18,7 @@ const moduleRoutes = [
     path: '/orders', 
     route: OrderRoutes,
   },
-  { path: '/products', route: ProductRoutes }, // নতুন যুক্ত হলো
+  { path: '/products', route: ProductRoutes }, 
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
